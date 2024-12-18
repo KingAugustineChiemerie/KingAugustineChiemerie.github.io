@@ -4,19 +4,40 @@
 /*General and Reseting*/
 :root{
     --Shadow: #0005;
-    --BackgroundColor: #c7c7c7ff;
     --BackgroundColor: #ebebeb;
-    --ServicesBackground: #c3c3ed;
     --ServicesBackground: #a2a2ff;
     --AboutBackground: #e2e2e291;
-    --TitleColor: #222277;
+    --ContactBtnColor: #222277;
     --TextColor: #9b9997;
     --AboutTextColor: #28283f;
     --AboutTextColor: #3f3f53;
     --ServicesTextColor: #3e3e3e;
-
+    --servicesBorder: 1px solid blue;
+    --AchievementPsuedoColor: #fff;
+    --AchievementBorder: #2e2e51;
     --ActiveLink: #333498ff;
+    --SkillBorader: 2px solid #000;
+    --PageTitleBackground: linear-gradient(180deg, #3838c0 10%, #060632 90%);
 }
+@media (prefers-color-scheme: dark) {
+    :root {
+        --Shadow: #0008; /* Slightly darker shadow */
+        --BackgroundColor: #1a1a2e; /* Dark navy blue for background */
+        --ServicesBackground: #30336b; /* Deep indigo for services */
+        --AboutBackground: #2c2c54; /* Muted indigo for about */
+        --ContactBtnColor: #4d4dff; /* Bright blue for contact button */
+        --TextColor: #b8b8b8; /* Light gray for general text */
+        --AboutTextColor: #dcdcdc; /* Slightly lighter gray for about section */
+        --ServicesTextColor: #c0c0c0; /* Medium-light gray for services section */
+        --servicesBorder: 1px solid #5a5aff; /* Brighter blue for borders */
+        --AchievementPsuedoColor: #2e2e51; /* Subtle indigo for achievements pseudo-elements */
+        --AchievementBorder: #5b5b8f; /* Faint indigo for achievement borders */
+        --ActiveLink: #6a5acd; /* Soft purple for active links */
+        --SkillBorader: 2px solid #5e5e5e; /* Dark gray for skill borders */
+        --PageTitleBackground: linear-gradient(180deg, #4a4af5 10%, #1a1a40 90%);
+    }
+}
+
 html{
     scroll-behavior: smooth;
 }
@@ -63,7 +84,7 @@ li{
     80%{transform: translate(0) scale(1); opacity: 1;}
     100%{transform: translate(-200%) scale(0); opacity: 0;}
 }
-.inner-notification{
+/* .inner-notification{
     font-size: medium;
     width: 90%;
     max-width: 500px;
@@ -73,7 +94,7 @@ li{
     border: 3px solid #fff;
     background-color: #ccc;
     box-shadow: 0px 0px 8px 3px var(--Shadow);
-}
+} */
 .close-notif{
     width: 50px;
     height: 50px;
@@ -136,12 +157,8 @@ h1, .hero-logo-con, p{
     font-family: "JetBrains", sans-serif;
     font-family: roboto, sans-serif;
 }
-/* h1, h2, h3, h4, h5, h6, .strong-text{
-    color: var(--TitleColor);
-    font-weight: bolder;
-} */
 .titles-text{
-    background: linear-gradient(180deg, #3838c0 10%, #060632 90%);
+    background: var(--PageTitleBackground);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -398,7 +415,7 @@ nav a{
 .hero-content button{
     margin-top: 50px;
     color: #fff;
-    background-color: var(--TitleColor);
+    background-color: var(--ContactBtnColor);
     font-size: x-large;
     padding: 10px 25px;
     border: .8px solid #fff;
@@ -414,7 +431,7 @@ nav a{
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--TitleColor);
+    background-color: var(--ContactBtnColor);
     top: 0;
     left: 0;
     border-radius: 10px;
@@ -433,7 +450,7 @@ nav a{
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: var(--TitleColor);
+    background-color: var(--ContactBtnColor);
     top: 0;
     left: 0;
     border-radius: 10px;
@@ -637,13 +654,18 @@ nav a{
     flex: 1 1 300px;
     border-radius: 12px;
     background-color: #ebebeb;
+    background-color: #f0f0f0;
     border: 8px solid #e0e0e0;
     width: 100%;
     max-width: 500px;
     padding: 4em 1em 1.5em 1em;
     margin-bottom: 1em;
-    border: 2px solid black;
+    border: var(--SkillBorader);
     position: relative;
+    transition: all 2s;
+}
+.skill-cont-con:hover{
+    scale: 1.05;
 }
 .skill-cont-con::after{
     content: "";
@@ -652,9 +674,20 @@ nav a{
     left: 0;
     width: 100%;
     height: 100%;
-    border: 2px solid black;
+    border: var(--SkillBorader);
+    color: transparent;
     border-radius: 12px;
     margin: 4px 0px 0px 4px;
+    transform: rotateX(180deg);
+    transition: transform 0.5s ease-out,
+        background-color 0.5s ease-in,
+        color 0.2s 0.4s ease-out;
+}
+.skill-cont-con:hover::after{
+    content: attr(data-skill-cont);
+    transform: rotateX(0deg);
+    color: black;
+    background-color: white;
 }
 .skill-progress-bar{
     width: 100%;
@@ -733,7 +766,7 @@ nav a{
     gap: 0.3em;
     position: relative;
     padding: 20px;
-    border: 2px solid rgba(0, 0, 255, 0.278);
+    border: 2px solid var(--AchievementBorder);
     max-width: fit-content;
 }
 .achievement-box::before{
@@ -743,8 +776,8 @@ nav a{
     position: absolute;
     width: 30%;
     height: 30%;
-    border-top: 1px solid #fff;
-    border-left: 1px solid #fff;
+    border-top: 1px solid var(--AchievementPsuedoColor);
+    border-left: 1px solid var(--AchievementPsuedoColor);
 }
 .achievement-box::after{
     content: "";
@@ -753,8 +786,8 @@ nav a{
     position: absolute;
     width: 30%;
     height: 30%;
-    border-bottom: 1px solid #fff;
-    border-right: 1px solid #fff;
+    border-bottom: 1px solid var(--AchievementPsuedoColor);
+    border-right: 1px solid var(--AchievementPsuedoColor);
 }
 .achievement-box p{
     padding: 0;
@@ -831,7 +864,7 @@ nav a{
     width: 300px;
     /* border-radius: 20px; */
     /* box-shadow: 15px 15px 1px 6px #3131dc; */
-    border: 1px solid blue;
+    border: var(--servicesBorder);
     padding: 1em;
     color: var(--ServicesTextColor);
     font-weight: bold;
@@ -844,38 +877,13 @@ nav a{
     top: 0;
     width: 100%;
     height: 100%;
-    border: 1px solid blue;
+    border: var(--servicesBorder);
     margin: 5px 0px 0px 5px;
 }
 .service:hover{
     background-color: #b0b0ff;
 }
-/*Individual service container styling*/
-/* #serv-1{
-    box-shadow: 10px 10px 1px 6px #3636c9;
-    border-color: #3636c9;
-}
-#serv-2{
-    box-shadow: 10px 10px 1px 6px #00a100;
-    border-color: #00a100;
-}
-#serv-3{
-    box-shadow: 10px 10px 1px 6px #ff5858;
-    border-color: #ff5858;
-}
-#serv-4{
-    box-shadow: 10px 10px 1px 6px #b30fb3;
-    border-color: #b30fb3;
-}
-#serv-5{
-    box-shadow: 10px 10px 1px 6px #b30fb3;
-    border-color: #b30fb3;
-}
-#serv-6{
-    box-shadow: 10px 10px 1px 6px #805a00;
-    border-color: #805a00;
-} */
-/*End of Individaul Service container*/
+
 .service-icon-con-p{
     width: 230px;
     height: 230px;
@@ -1058,7 +1066,7 @@ nav a{
     max-width: 70%;
     position: relative;
     padding-bottom: 16px;
-    text-shadow: 2px 2px 6px black;
+    text-shadow: 2px 2px 6px #0000007a;
 }
 .project-con h4::before, .project-con h4::after{
     content: "";
@@ -1179,7 +1187,7 @@ footer{
 }
 .contact-icons{
     color: transparent;
-    -webkit-text-stroke: 2px var(--TitleColor);
+    -webkit-text-stroke: 2px var(--ContactBtnColor);
 }
 .social-accounts a{
     border: 2px solid #28285c;
@@ -1494,7 +1502,7 @@ a.personal-contact-link{
         box-shadow: #05054352 5px 5px 8px 2px;
         justify-items: center;
         position: relative;
-        border: 4px solid black;
+        border: 2px solid black;
         border-radius: 0;
         width: 100%;
         /* border-bottom: 8px double #0000ff91;
@@ -1508,7 +1516,7 @@ a.personal-contact-link{
         position: absolute;
         width: 100%;
         height: 100%;
-        border: 3px solid black;
+        border: 1px solid #080c3f;
         margin: 8px 0px 0px 15px;
     }
     .about .tit{
